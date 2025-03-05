@@ -482,3 +482,18 @@ class CloudInterface(JsonInterface):
         json_scheme = self.gen_def_json_scheme('SetEnqueueServerRestore', method_fields=restore_request)
         json_obj = self.call_method_post(method='SetEnqueueServerRestore', json_scheme=json_scheme)
         return True if json_obj['Success'] is True else False
+
+    def get_credit(self):
+        """
+        Retrieve the available credit balance.
+        :return: The credit balance as a float.
+        """
+        json_scheme = self.gen_def_json_scheme('GetCredit')
+        json_obj = self.call_method_post(method='GetCredit', json_scheme=json_scheme)
+
+        if json_obj.get('Success'):
+            credit_balance = json_obj['Value']['Value']
+            return credit_balance
+        else:
+            print("Failed to retrieve credit balance.")
+            return None
