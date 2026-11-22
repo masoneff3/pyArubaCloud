@@ -492,7 +492,7 @@ class CloudInterface(JsonInterface):
         json_obj = self.call_method_post(method='GetCredit', json_scheme=json_scheme)
 
         if json_obj.get('Success'):
-            credit_balance = json_obj['Value']['Value']
+            credit_balance = round(float(json_obj['Value']['Value']), 2) # Round to 2 decimal places
             return credit_balance
         else:
             print("Failed to retrieve credit balance.")
